@@ -25,6 +25,7 @@
         i3blocks-gaps
         direnv
         spotify
+        ncmpcpp
       ];
     };
   };
