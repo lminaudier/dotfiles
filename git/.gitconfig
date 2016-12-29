@@ -1,0 +1,30 @@
+[user]
+  name = Loïc Minaudier
+  email = loic.minaudier@gmail.com
+[color]
+  ui = auto
+[alias]
+  st = status -sb
+  status = st
+  ci = commit -v
+  co = checkout
+  d = diff
+  dc = diff --cached
+  amend = commit -v --amend
+  aa = add --all
+  r = !git --no-pager l -10
+  l = log --graph --abbrev-commit --date=relative
+  fa = fetch --all
+  pom = push origin master
+[format]
+  pretty=format:%C(yellow)%h%Creset -%C(red)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset
+[core]
+  whitespace = cr-at-eol
+  editor = vim -f
+  excludesfile = ~/.gitignore
+[help]
+  autocorrect = 1
+[rerere]
+  enabled = 1
+[github]
+  user = lminaudier
