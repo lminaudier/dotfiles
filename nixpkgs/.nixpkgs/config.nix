@@ -27,6 +27,7 @@
         spotify
         ncmpcpp
         zathura
+        emojione
       ];
     };
   };
