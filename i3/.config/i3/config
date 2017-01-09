@@ -158,6 +158,7 @@ bar {
 new_window 1pixel
 gaps inner 10
 gaps outer 10
+smart_gaps on
 
 #                       border   backgr.  text      indicator
 client.focused          $color12 $color0  $color15  $color15
