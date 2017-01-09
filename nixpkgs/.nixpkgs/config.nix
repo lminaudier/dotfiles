@@ -29,6 +29,7 @@
         zathura
         enpass
         slack
+        redshift
         emojione
       ];
     };
