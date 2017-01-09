@@ -27,6 +27,7 @@
         spotify
         ncmpcpp
         zathura
+        enpass
         slack
         emojione
       ];
