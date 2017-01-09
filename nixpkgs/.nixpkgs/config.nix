@@ -26,6 +26,7 @@
         direnv
         spotify
         ncmpcpp
+        zathura
       ];
     };
   };

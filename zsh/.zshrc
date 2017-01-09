@@ -40,6 +40,7 @@ alias gb='hub browse'
 alias pbcopy='xsel --clipboard --input'
 alias pbpaste='xsel --clipboard --output'
 alias music='ncmpcpp'
+alias pdf='zathura'
 
 ###################
 # Antigen bundles #
