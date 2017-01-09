@@ -49,6 +49,7 @@ alias music='ncmpcpp'
 antigen use oh-my-zsh
 antigen bundle command-not-found
 antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle zsh-users/zsh-completions
 antigen theme avit
 
 # Tell antigen that you're done.
