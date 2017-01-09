@@ -1,2 +1,2 @@
-xrdb ~/.Xresources
+setxkbmap -rules evdev -model evdev -layout us -variant intl
 xset r rate 200 50
