@@ -10,6 +10,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'fatih/vim-go', { 'tag': '*' }
 Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim' }
 Plug 'LnL7/vim-nix'
+Plug 'elixir-lang/vim-elixir'
 
 " Initialize plugin system
 call plug#end()
