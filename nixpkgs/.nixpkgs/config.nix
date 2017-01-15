@@ -25,11 +25,8 @@
         i3blocks-gaps
         direnv
         spotify
-        ncmpcpp
         zathura
         enpass
-        slack
-        redshift
         emojione
       ];
     };
