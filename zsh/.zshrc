@@ -48,6 +48,7 @@ alias pdf='zathura'
 
 # Load oh-my-zsh lib
 antigen use oh-my-zsh
+antigen bundle git
 antigen bundle command-not-found
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-completions
