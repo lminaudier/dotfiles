@@ -28,3 +28,11 @@
   enabled = 1
 [github]
   user = lminaudier
+[commit]
+	verbose = true
+[diff]
+	indentHeuristic = true
+[rebase]
+	autostash = true
+[stash]
+	showPatch = true
