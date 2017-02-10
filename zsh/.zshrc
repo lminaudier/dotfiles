@@ -31,17 +31,6 @@ nix-search () {
   nix-env -qa \* -P | fgrep -i "$1";
 }
 
-###########
-# Aliases #
-###########
-
-alias git='hub'
-alias gb='hub browse'
-alias pbcopy='xsel --clipboard --input'
-alias pbpaste='xsel --clipboard --output'
-alias music='ncmpcpp'
-alias pdf='zathura'
-
 ###################
 # Antigen bundles #
 ###################
