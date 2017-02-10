@@ -52,6 +52,13 @@ antigen apply
 
 eval "$(direnv hook zsh)"
 
+. $HOME/.asdf/asdf.sh
+. $HOME/.asdf/completions/asdf.bash
+
+###########
+# Aliases #
+###########
+
 #############
 # ls colors #
 #############
