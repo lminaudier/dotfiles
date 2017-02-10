@@ -52,3 +52,9 @@ antigen apply
 
 eval "$(direnv hook zsh)"
 
+#############
+# ls colors #
+#############
+
+export LS_COLORS=$LS_COLORS:'di=1;32:'
+export LS_COLORS=$LS_COLORS:'ex=0;31:'
