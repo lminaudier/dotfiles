@@ -32,6 +32,13 @@ nix-search () {
   nix-env -qa \* -P | fgrep -i "$1";
 }
 
+# bc - An arbitrary precision calculator language
+function =
+{
+  echo "$@" | bc -l
+}
+alias calc="="
+
 ###################
 # Antigen bundles #
 ###################
