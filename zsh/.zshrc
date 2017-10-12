@@ -22,6 +22,7 @@ SAVEHIST=10000000
 export NIXPKGS_ALLOW_UNFREE=1
 export GOPATH="$HOME/Projects/go"
 export PATH="$GOPATH/bin:$HOME/bin:$PATH"
+export CDPATH="${GOPATH}/src:${CDPATH}"
 
 ####################
 # Custom Functions #
