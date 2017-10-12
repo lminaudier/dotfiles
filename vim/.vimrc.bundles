@@ -15,6 +15,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
 Plug 'ConradIrwin/vim-bracketed-paste'
+Plug 'airblade/vim-gitgutter'
 
 " Initialize plugin system
 call plug#end()
