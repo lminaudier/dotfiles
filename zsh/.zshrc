@@ -60,6 +60,11 @@ eval "$(direnv hook zsh)"
 # Aliases #
 ###########
 
+alias pbcopy="xclip -selection clipboard"
+alias pbpaste="xclip -selection clipboard -o"
+alias ssh="TERM=xterm ssh"
+alias open="xdg-open"
+
 #############
 # ls colors #
 #############
