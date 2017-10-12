@@ -180,3 +180,7 @@ set completeopt-=preview
 " NERDTree
 nnoremap <leader>l :NERDTreeToggle<cr>
 nnoremap <leader>L :NERDTreeFind<cr>
+
+" ctrl-j and ctrl-k to scroll into popup menus
+inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
+inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
