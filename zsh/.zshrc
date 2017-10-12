@@ -14,7 +14,6 @@ HISTFILE="$HOME/.zsh_history"
 HISTSIZE=10000000
 SAVEHIST=10000000
 
-
 #########################
 # Environment Variables #
 #########################
@@ -78,3 +77,11 @@ alias open="xdg-open"
 
 export LS_COLORS=$LS_COLORS:'di=1;32:'
 export LS_COLORS=$LS_COLORS:'ex=0;31:'
+
+#########
+# Pyenv #
+#########
+
+export PATH="$HOME/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
