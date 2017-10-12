@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 
-for d in `ls . | grep -v install.sh`;
+declare -a configs=("antigen" "git" "vim" "zsh" "desktop-entries")
+
+for d in "${configs[@]}";
 do
     ( stow $d )
 done
+
+
