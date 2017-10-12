@@ -176,3 +176,7 @@ let g:go_fmt_command = "goimports"
 
 " Disable omnicompletion preview window
 set completeopt-=preview
+
+" NERDTree
+nnoremap <leader>l :NERDTreeToggle<cr>
+nnoremap <leader>L :NERDTreeFind<cr>
