@@ -18,6 +18,7 @@ Plug 'ConradIrwin/vim-bracketed-paste'
 Plug 'airblade/vim-gitgutter'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
+Plug 'godlygeek/tabular'
 
 " Initialize plugin system
 call plug#end()
