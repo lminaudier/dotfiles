@@ -181,6 +181,11 @@ set completeopt-=preview
 nnoremap <leader>l :NERDTreeToggle<cr>
 nnoremap <leader>L :NERDTreeFind<cr>
 
+" Trigger configuration.
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<c-b>"
+
 " ctrl-j and ctrl-k to scroll into popup menus
 inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
 inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
