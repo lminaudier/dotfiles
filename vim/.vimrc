@@ -161,10 +161,11 @@ set completeopt=menu,preview
 nnoremap <leader>p :FZF<cr>
 
 " Vim Go
-let $PATH = $HOME."/Projects/go/bin:".$PATH
-let $GOPATH = $HOME."/Projects/go"
-let $GOROOT = $HOME."/.asdf/installs/golang/1.9/go"
-let g:go_bin_path = $HOME."/Projects/go/bin"
+let $PATH = $HOME."/go/bin:".$PATH
+let $GOPATH = $HOME."/go"
+let $GOROOT = "/usr/local/opt/asdf/installs/golang/1.10/go"
+
+let g:go_bin_path = $HOME."/go/bin"
 
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1

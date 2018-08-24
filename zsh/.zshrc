@@ -18,18 +18,13 @@ SAVEHIST=10000000
 # Environment Variables #
 #########################
 
-export NIXPKGS_ALLOW_UNFREE=1
-export GOPATH="$HOME/Projects/go"
+export GOPATH="$HOME/go"
 export PATH="$GOPATH/bin:$HOME/bin:$PATH"
 export CDPATH="${GOPATH}/src:${CDPATH}"
 
 ####################
 # Custom Functions #
 ####################
-
-nix-search () {
-  nix-env -qa \* -P | fgrep -i "$1";
-}
 
 # bc - An arbitrary precision calculator language
 function =
@@ -60,17 +55,15 @@ antigen apply
 
 eval "$(direnv hook zsh)"
 
-. $HOME/.asdf/asdf.sh
-. $HOME/.asdf/completions/asdf.bash
+if [[ -s "/usr/local/opt/asdf/asdf.sh" ]]; then
+  source /usr/local/opt/asdf/asdf.sh
+fi
 
 ###########
 # Aliases #
 ###########
 
-alias pbcopy="xclip -selection clipboard"
-alias pbpaste="xclip -selection clipboard -o"
 alias ssh="TERM=xterm ssh"
-alias open="xdg-open"
 
 #############
 # ls colors #
@@ -79,10 +72,8 @@ alias open="xdg-open"
 export LS_COLORS=$LS_COLORS:'di=1;32:'
 export LS_COLORS=$LS_COLORS:'ex=0;31:'
 
-#########
-# Pyenv #
-#########
+############
+# Autojump #
+############
 
-export PATH="$HOME/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+[ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
