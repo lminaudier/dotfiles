@@ -21,6 +21,7 @@ Plug 'honza/vim-snippets'
 Plug 'godlygeek/tabular'
 Plug 'vim-ruby/vim-ruby'
 Plug 'tpope/vim-endwise'
+Plug 'keith/swift.vim'
 
 " Initialize plugin system
 call plug#end()
