@@ -19,6 +19,7 @@ Plug 'godlygeek/tabular'
 Plug 'vim-ruby/vim-ruby'
 Plug 'tpope/vim-endwise'
 Plug 'justinmk/vim-sneak'
+Plug 'wellle/targets.vim'
 
 " Initialize plugin system
 call plug#end()
