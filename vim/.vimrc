@@ -166,7 +166,6 @@ nnoremap <leader>p :FZF<cr>
 " Vim Go
 let $PATH = $HOME."/go/bin:".$PATH
 let $GOPATH = $HOME."/go"
-let $GOROOT = "/usr/local/opt/asdf/installs/golang/1.10/go"
 
 let g:go_bin_path = $HOME."/go/bin"
 
@@ -177,6 +176,8 @@ let g:go_highlight_types = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 let g:go_fmt_command = "goimports"
+let g:go_def_mode='gopls'
+let g:go_info_mode='gopls'
 
 " Disable omnicompletion preview window
 set completeopt-=preview
