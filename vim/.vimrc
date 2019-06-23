@@ -194,3 +194,6 @@ let g:UltiSnipsJumpBackwardTrigger="<c-b>"
 " ctrl-j and ctrl-k to scroll into popup menus
 inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
 inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
+
+" Vim Sneak
+let g:sneak#label = 1

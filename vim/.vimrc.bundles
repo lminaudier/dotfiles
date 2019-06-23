@@ -22,6 +22,7 @@ Plug 'godlygeek/tabular'
 Plug 'vim-ruby/vim-ruby'
 Plug 'tpope/vim-endwise'
 Plug 'keith/swift.vim'
+Plug 'justinmk/vim-sneak'
 
 " Initialize plugin system
 call plug#end()
