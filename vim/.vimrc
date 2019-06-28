@@ -197,3 +197,19 @@ inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
 
 " Vim Sneak
 let g:sneak#label = 1
+
+" Vim Wiki
+nmap <Leader>tt <Plug>VimwikiToggleListItem
+vmap <Leader>tt <Plug>VimwikiToggleListItem
+
+let g:vimwiki_list = [{
+  \ 'automatic_nested_syntaxes':1,
+  \ 'path_html': '$HOME/wiki/html',
+  \ 'path': '$HOME/wiki/text',
+  \ 'template_path': '$HOME/wiki/template/',
+  \ 'syntax': 'markdown',
+  \ 'ext':'.md',
+  \ 'template_default':'markdown',
+  \ 'custom_wiki2html': '$HOME/bin/wiki2html.sh',
+  \ 'template_ext':'.html'
+\}]
