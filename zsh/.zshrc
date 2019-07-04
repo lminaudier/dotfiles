@@ -17,3 +17,8 @@ eval "$(direnv hook zsh)"
 
 alias go='nocorrect go'
 alias org='vim ~/Notes'
+
+zstyle ':completion:*:make:*:targets' call-command true # outputs all possible results for make targets
+zstyle ':completion:*:make:*' tag-order targets
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*:descriptions' format '%B%d%b'
