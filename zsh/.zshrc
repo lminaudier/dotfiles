@@ -14,3 +14,6 @@ eval "$(direnv hook zsh)"
 [ -f "${HOME}/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh" ] && . "${HOME}/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
 
 [ -z $EMACS ] && [ -f "${HOME}/.iterm2_shell_integration.zsh" ] && . "${HOME}/.iterm2_shell_integration.zsh"
+
+alias go='nocorrect go'
+alias org='vim ~/Notes'
