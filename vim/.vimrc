@@ -1,6 +1,7 @@
 set nocompatible               " be iMproved
 filetype off                   " required!
 
+set shell=zsh
 " no vi compatibility
 set nocompatible
 
@@ -17,8 +18,19 @@ if filereadable(expand("~/.vimrc.bundles"))
 endif
 
 " Colors
-colorscheme gruvbox
+if (has("nvim"))
+  "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+endif
+
+"For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+"Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+" < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+if (has("termguicolors"))
+  set termguicolors
+endif
 set background=dark
+colorscheme palenight
 
 " Share clipboard
 set clipboard=unnamed
@@ -66,6 +78,9 @@ augroup END
 
 " allow backgrounding buffer without saving them
 set hidden
+
+" Copy to OSX clipboard
+set clipboard=unnamed
 
 " configure tabs
 set tabstop=2                     " a tab is two spaces
@@ -125,16 +140,13 @@ set mousehide
 set virtualedit=all
 
 " Text width to 80 characters
-set textwidth=80
+set textwidth=100
 set fo+=cqt
 set wrapmargin=0
-
-" :W write the file as :w
-command! W :w
+set nowrap
 
 " Enable mouse scrolling
 set mouse=a
-set ttymouse=xterm
 
 " Excape is so far away from keyboard
 inoremap jj <esc>
@@ -153,7 +165,7 @@ nnoremap <leader>sv :source $MYVIMRC<cr>
 nnoremap <leader>bd :bd<cr>
 
 " Colorize 80 chars column
-set colorcolumn=80
+set colorcolumn=100
 
 " Autocomplete mode
 set wildmode=longest,list:longest
@@ -164,10 +176,9 @@ set completeopt=menu,preview
 nnoremap <leader>p :FZF<cr>
 
 " Vim Go
-let $PATH = $HOME."/go/bin:".$PATH
 let $GOPATH = $HOME."/go"
-
-let g:go_bin_path = $HOME."/go/bin"
+let $PATH = $GOPATH."/bin:".$PATH
+let g:go_bin_path = $GOPATH."/bin"
 
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
@@ -185,6 +196,21 @@ set completeopt-=preview
 " NERDTree
 nnoremap <leader>l :NERDTreeToggle<cr>
 nnoremap <leader>L :NERDTreeFind<cr>
+com! -nargs=1 -complete=dir Ncd NERDTree | cd <args> |NERDTreeCWD
+
+function! s:CloseIfOnlyControlWinLeft()
+  if winnr("$") != 1
+    return
+  endif
+  if (exists("t:NERDTreeBufName") && bufwinnr(t:NERDTreeBufName) != -1)
+        \ || &buftype == 'quickfix'
+    q
+  endif
+endfunction
+augroup CloseIfOnlyControlWinLeft
+  au!
+  au BufEnter * call s:CloseIfOnlyControlWinLeft()
+augroup END
 
 " Trigger configuration.
 let g:UltiSnipsExpandTrigger="<tab>"
