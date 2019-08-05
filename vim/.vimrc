@@ -25,6 +25,7 @@ Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'ConradIrwin/vim-bracketed-paste'
 Plug 'vimwiki/vimwiki'
+Plug 'mhinz/vim-startify'
 
 " Snippets
 Plug 'MarcWeber/vim-addon-mw-utils'
