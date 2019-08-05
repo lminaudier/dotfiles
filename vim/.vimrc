@@ -20,12 +20,13 @@ call plug#begin('~/.vim/plugged')
 " Editor features
 Plug 'itchyny/lightline.vim'
 Plug 'airblade/vim-gitgutter'
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'scrooloose/nerdtree'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'ConradIrwin/vim-bracketed-paste'
 Plug 'vimwiki/vimwiki'
 Plug 'mhinz/vim-startify'
+Plug 'kassio/neoterm'
 
 " Snippets
 Plug 'MarcWeber/vim-addon-mw-utils'
@@ -50,7 +51,7 @@ call plug#end()
 
 " Theme and colors
 if (has("termguicolors"))
-  set termguicolors
+    set termguicolors
 endif
 set background=dark
 colorscheme palenight
@@ -77,6 +78,12 @@ set shiftround
 " Enable line numbers
 set number
 
+" automatically write file before executing any command
+set autowrite
+
+" Treat dash separated words as a word text object
+set iskeyword+=-
+
 " Enable undo
 set undodir=~/.vim/undodir
 set undofile
@@ -101,12 +108,23 @@ nnoremap <down> <nop>
 nnoremap <left> <nop>
 nnoremap <right> <nop>
 
-" Remap W to write
+" Command typos on write and quit
 command! W :w
+cnoremap WQ wq
+cnoremap Wq wq
+cnoremap QA qa
+cnoremap qA qa
+cnoremap Q! q!
 
 " go up or done by one line on wrapped lines
 nnoremap j gj
 nnoremap k gk
+
+" Quicker window movement
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-h> <C-w>h
+nnoremap <C-l> <C-w>l
 
 " Use jk to to go from insert to normal mode
 inoremap jk <esc>
@@ -124,7 +142,13 @@ augroup END
 " configure tabs
 set tabstop=4
 set shiftwidth=4
+" round indent to multiples of shiftwidth
+set shiftround
 set expandtab
+
+" optimization
+set ttyfast           " should make scrolling faster
+set lazyredraw        " should make scrolling faster
 
 " invisibles
 set listchars=eol:⏎,tab:␉·,trail:␠,nbsp:⎵
@@ -144,6 +168,9 @@ map <silent> <C-N> :se invhlsearch<CR>
 
 " Desactivate sounds
 set visualbell
+
+" Don't wrap by default
+set nowrap
 
 " Start scroll 3 lines before the top or bottom
 set scrolloff=5
@@ -177,7 +204,6 @@ inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 """"""""""""""""""""""""""""""""""""""""
 if has("nvim")
     tnoremap <leader><esc> <C-\><C-n>
-    autocmd BufEnter,BufNew term://* startinsert
 endif
 
 """"""""""""""""""""""""""""""""""""""""
@@ -190,7 +216,37 @@ nnoremap <leader>bd :bd<cr>
 nnoremap <leader>l :NERDTreeToggle<CR>
 nnoremap <leader>L :NERDTreeFind<CR>
 
-nnoremap <leader>t :belowright split term://make<CR>
+nnoremap <silent> <leader>o :vertical botright Ttoggle<cr>
+nnoremap <silent> <leader>O :botright Ttoggle<cr>
+nnoremap <silent> <leader><space> :vertical botright Ttoggle<cr>
+
+" Remove search highlight on <esc>
+map <silent> <esc> :nohlsearch<cr>
+
+""""""""""""""""""""""""""""""""""""""""
+" Autocommands
+""""""""""""""""""""""""""""""""""""""""
+
+autocmd FileType gitcommit setlocal textwidth=72
+autocmd FileType gitcommit setlocal spell
+
+""""""""""""""""""""""""""""""""""""""""
+" Neovim specific
+""""""""""""""""""""""""""""""""""""""""
+if has('nvim')
+    " use neovim-remote (pip3 install neovim-remote) allows
+    " opening a new split inside neovim instead of nesting
+    " neovim processes for git commit
+    let $VISUAL      = 'nvr -cc split --remote-wait +"setlocal bufhidden=delete"'
+    let $GIT_EDITOR  = 'nvr -cc split --remote-wait +"setlocal bufhidden=delete"'
+    let $EDITOR      = 'nvr -l'
+
+    " Navigate neovim + neovim terminal emulator with alt+direction
+    tnoremap <c-h> <C-\><C-n><C-w>h
+    tnoremap <c-j> <C-\><C-n><C-w>j
+    tnoremap <c-k> <C-\><C-n><C-w>k
+    tnoremap <c-l> <C-\><C-n><C-w>l
+endif
 
 """"""""""""""""""""""""""""""""""""""""
 " Plugin Specific configuration
@@ -232,5 +288,15 @@ let g:vimwiki_list = [{
 \}]
 
 " Vim test
+let g:test#stategy = "neoterm"
 nnoremap <leader>t :TestFile<CR>
 nnoremap <leader>T :TestNearest<CR>
+
+" Neoterm
+let g:neoterm_autoscroll = 1
+let g:neoterm_autoinsert = 1
+nnoremap <leader>T :TestNearest<CR>
+
+" NERDTree
+let g:NERDTreeShowHidden = 1
+let g:NERDTreeAutoDeleteBuffer=1
