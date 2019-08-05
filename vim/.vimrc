@@ -1,41 +1,66 @@
-set nocompatible               " be iMproved
-filetype off                   " required!
-
-set shell=zsh
-" no vi compatibility
+" Disable VI compatibility
 set nocompatible
 
-" remap leader key
-let mapleader=","
-
-" filetype detection an syntax highlighting
+" Enable file type detection and syntax highlighting
+filetype off
 filetype plugin indent on
 syntax on
 
-" Load vundle plugins
-if filereadable(expand("~/.vimrc.bundles"))
-  source ~/.vimrc.bundles
-endif
+" Set leader key
+let mapleader=","
 
-" Colors
-if (has("nvim"))
-  "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-endif
+" Set shell
+set shell=/bin/zsh
 
-"For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
-"Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
-" < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" Plugins
+""""""""""""""""""""""""""""""""""""""""""""""""""
+
+call plug#begin('~/.vim/plugged')
+" Editor features
+Plug 'itchyny/lightline.vim'
+Plug 'airblade/vim-gitgutter'
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
+Plug 'ConradIrwin/vim-bracketed-paste'
+Plug 'vimwiki/vimwiki'
+
+" Snippets
+Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'tomtom/tlib_vim'
+Plug 'garbas/vim-snipmate'
+Plug 'honza/vim-snippets'
+
+" Editor themes
+Plug 'drewtempelmeyer/palenight.vim'
+
+" Code edit plugins
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-commentary'
+
+" Test runners
+Plug 'janko/vim-test'
+
+" Language specific
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+call plug#end()
+
+" Theme and colors
 if (has("termguicolors"))
   set termguicolors
 endif
 set background=dark
 colorscheme palenight
+let g:lightline = {
+      \ 'colorscheme': 'palenight',
+      \ }
 
-" Share clipboard
+" Share VIM clipboard with OSX one
 set clipboard=unnamed
 
-" encoding
+" Set default editor encoding
 set encoding=utf-8
 
 " Turn off backup and swp files
@@ -43,32 +68,51 @@ set nobackup
 set nowritebackup
 set noswapfile
 
-" Indentation
+" Enable auto and smart indentation
 set autoindent
 set smartindent
-
-" Smart indentation
 set shiftround
 
-" Desactivate code folding
-set nofoldenable
-
-" numbering
+" Enable line numbers
 set number
 
-" Allow undoing after quitting
+" Enable undo
 set undodir=~/.vim/undodir
 set undofile
 set undolevels=100
 
-" autocomplete menu in commands
+" Autocomplete commands
 set wildmenu
+set wildmode=list,full
 
-" Always show status
+" Always show last command status
 set laststatus=2
 
 " Always show tab line
 set showtabline=2
+
+" Allow putting buffers in background even when they are unsaved
+set hidden
+
+" Deactivate arrows in normal mode
+nnoremap <up> <nop>
+nnoremap <down> <nop>
+nnoremap <left> <nop>
+nnoremap <right> <nop>
+
+" Remap W to write
+command! W :w
+
+" go up or done by one line on wrapped lines
+nnoremap j gj
+nnoremap k gk
+
+" Use jk to to go from insert to normal mode
+inoremap jk <esc>
+
+" Hides mode in status line.
+" It appears in status bar
+set noshowmode
 
 " Remove trailing spaces
 augroup clear_whitespaces
@@ -76,48 +120,20 @@ augroup clear_whitespaces
   autocmd BufWritePre * :%s/\s\+$//e
 augroup END
 
-" allow backgrounding buffer without saving them
-set hidden
-
-" Copy to OSX clipboard
-set clipboard=unnamed
-
 " configure tabs
-set tabstop=2                     " a tab is two spaces
-set shiftwidth=2                  " an autoindent (with <<) is two spaces
-set expandtab                     " use spaces, not tabs
+set tabstop=4
+set shiftwidth=4
+set expandtab
 
 " invisibles
-set list                          " Show invisible characters
-set listchars=""                  " Reset the listchars
-set listchars=tab:\ \             " a tab should display as "  ", trailing whitespace as "."
-set listchars+=trail:·            " show trailing spaces as middle dots
-set listchars+=extends:>          " The character to show in the last column when wrap is
-                                  " off and the line continues beyond the right of the scree
+set listchars=eol:⏎,tab:␉·,trail:␠,nbsp:⎵
+
 " Desactivate Ex-mode
 map Q <Nop>
 
-" Don't use thats nasty arrows
-nnoremap <up> <nop>
-nnoremap <down> <nop>
-nnoremap <left> <nop>
-nnoremap <right> <nop>
-
-" go up or done by one line on wrapped lines
-nnoremap j gj
-nnoremap k gk
-
-" Make searches case-sensitive only if they contain upper-case characters
+" Search
 set ignorecase
 set smartcase
-
-" desactivate sounds
-set visualbell
-
-" start scroll 3 lines before the top (or bottom)
-set scrolloff=3
-
-" configure search
 nnoremap / /\v
 vnoremap / /\v
 set gdefault
@@ -125,32 +141,21 @@ set incsearch
 set showmatch
 map <silent> <C-N> :se invhlsearch<CR>
 
+" Desactivate sounds
+set visualbell
+
+" Start scroll 3 lines before the top or bottom
+set scrolloff=5
+
+" Allow using backspace in vim i.e on line breaks, indents, ...
 set backspace=2
-set backspace=indent,eol,start
 
-" Faster scrolling
-set ttyfast
-set showcmd
-set lazyredraw
-
-" Hide mouse when typing
-set mousehide
-
-" Allow the cursor to go in to "invalid" places
+" Allow to edit in invalid places
 set virtualedit=all
 
-" Text width to 80 characters
-set textwidth=100
-set fo+=cqt
-set wrapmargin=0
-set nowrap
-
+" Mouse configuration
 " Enable mouse scrolling
 set mouse=a
-
-" Excape is so far away from keyboard
-inoremap jj <esc>
-inoremap jk <esc>
 
 " Better dot command in visual mode
 vnoremap . :norm.<cr>
@@ -158,28 +163,39 @@ vnoremap . :norm.<cr>
 " Automatically reread files that have been changed externally
 set autoread
 
-" Leader Mappings
+" ctrl-j and ctrl-k to scroll into popup menus
+inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
+inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
+
+" autocompletion menu configuration
+set completeopt=longest,menuone
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+""""""""""""""""""""""""""""""""""""""""
+" Neovim Terminal
+""""""""""""""""""""""""""""""""""""""""
+if has("nvim")
+    tnoremap <leader><esc> <C-\><C-n>
+    autocmd BufEnter,BufNew term://* startinsert
+endif
+
+""""""""""""""""""""""""""""""""""""""""
+" Leader key bindings
+""""""""""""""""""""""""""""""""""""""""
+
 nnoremap <leader><leader> <c-^>
-nnoremap <leader>ev :vsplit $MYVIMRC<cr>
-nnoremap <leader>sv :source $MYVIMRC<cr>
-nnoremap <leader>bd :bd<cr>
-
-" Colorize 80 chars column
-set colorcolumn=100
-
-" Autocomplete mode
-set wildmode=longest,list:longest
-set complete=.,b,u,]
-set completeopt=menu,preview
-
-" FZF
 nnoremap <leader>p :FZF<cr>
+nnoremap <leader>bd :bd<cr>
+nnoremap <leader>l :NERDTreeToggle<CR>
+nnoremap <leader>L :NERDTreeFind<CR>
+
+nnoremap <leader>t :belowright split term://make<CR>
+
+""""""""""""""""""""""""""""""""""""""""
+" Plugin Specific configuration
+""""""""""""""""""""""""""""""""""""""""
 
 " Vim Go
-let $GOPATH = $HOME."/go"
-let $PATH = $GOPATH."/bin:".$PATH
-let g:go_bin_path = $GOPATH."/bin"
-
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_fields = 1
@@ -189,40 +205,14 @@ let g:go_highlight_build_constraints = 1
 let g:go_fmt_command = "goimports"
 let g:go_def_mode='gopls'
 let g:go_info_mode='gopls'
+let g:auto_type_info = 1
+let g:go_addtags_transform = "snake_case"
+let g:go_auto_sameids = 1
+" Autocomplete prompt when . is pressed
+au filetype go inoremap <buffer> . .<C-x><C-o>
 
-" Disable omnicompletion preview window
-set completeopt-=preview
-
-" NERDTree
-nnoremap <leader>l :NERDTreeToggle<cr>
-nnoremap <leader>L :NERDTreeFind<cr>
-com! -nargs=1 -complete=dir Ncd NERDTree | cd <args> |NERDTreeCWD
-
-function! s:CloseIfOnlyControlWinLeft()
-  if winnr("$") != 1
-    return
-  endif
-  if (exists("t:NERDTreeBufName") && bufwinnr(t:NERDTreeBufName) != -1)
-        \ || &buftype == 'quickfix'
-    q
-  endif
-endfunction
-augroup CloseIfOnlyControlWinLeft
-  au!
-  au BufEnter * call s:CloseIfOnlyControlWinLeft()
-augroup END
-
-" Trigger configuration.
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<c-b>"
-
-" ctrl-j and ctrl-k to scroll into popup menus
-inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
-inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
-
-" Vim Sneak
-let g:sneak#label = 1
+" SnipMate
+imap <tab> <Plug>snipMateNextOrTrigger
 
 " Vim Wiki
 nmap <Leader>tt <Plug>VimwikiToggleListItem
@@ -239,3 +229,7 @@ let g:vimwiki_list = [{
   \ 'custom_wiki2html': '$HOME/bin/wiki2html.sh',
   \ 'template_ext':'.html'
 \}]
+
+" Vim test
+nnoremap <leader>t :TestFile<CR>
+nnoremap <leader>T :TestNearest<CR>
